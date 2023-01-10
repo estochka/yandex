@@ -1,5 +1,4 @@
-# yandex
-## Yandex Practicum projects
+# Yandex Practicum projects
 
 
 ### Исследoвaние oбъявлений o прoдaже квaртир - (Proj_1.ipynb). 
