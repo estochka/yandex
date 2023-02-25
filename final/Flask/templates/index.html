@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+      <title>Predictions</title>
+   </head>
+   <body>
+      <div class="login">
+         <div class="container">
+            <form action="{{ url_for('predict')}}" method="post">
+               <div class="pt-5 text-center">
+                  <h2>Вероятность ухода клиента </h2>
+                   <p>{{result}}</p>
+               </div>
+
+               <div class="row row-cols-1 row-cols-md-2  border border-primary py-3 px-2">
+                   <div class="col">
+                       <div class="row">
+                           <div class="col-12">
+                               <h4>Информация о клиенте</h4>
+                           </div>
+
+                           <div class="col-6">
+                               <label for="begin_date" class="form-label ">Дата начала пользования услугами</label>
+                               <input id="begin_date" class="form-control"  type="date" name="13" required/>
+                           </div>
+
+                           <div class="col-6">
+                               <label for="end_date" class="form-label">Дата окончания пользования услугами(если есть)</label>
+                               <input id="end_date" class="form-control"  type="date" name="14" />
+                           </div>
+
+                           <div class="col-6 mt-3">
+                               <label for="gender" class="form-label">Пол</label>
+                               <select class="form-select" id="gender" name="9" required>
+                                   <option selected disabled value="">Выберите...</option>
+                                   <option value="Male">Мужчина</option>
+                                   <option value="Female">Женщина</option>
+                               </select>
+                           </div>
+
+                           <div class="col-6 mt-3">
+                               <label for="senior" class="form-label">Пенсионный статус</label>
+                               <select class="form-select" id="senior"  name="10" required>
+                                   <option selected disabled value="">Выберите...</option>
+                                   <option value="1">Да</option>
+                                   <option value="0">Нет</option>
+                               </select>
+                           </div>
+
+                           <div class="col-6 mt-3">
+                               <label for="partner" class="form-label">Есть супруг(а)</label>
+                               <select class="form-select" id="partner" name="11" required>
+                                   <option selected disabled value="">Выберите...</option>
+                                   <option value="Yes">Да</option>
+                                   <option value="No">Нет</option>
+                               </select>
+                           </div>
+
+                           <div class="col-6 mt-3">
+                               <label for="dependents" class="form-label">Есть иждивенцы</label>
+                               <select class="form-select" name="12" id="dependents" required>
+                                   <option selected disabled value="">Выберите...</option>
+                                   <option value="Yes">Да</option>
+                                   <option value="No">Нет</option>
+                               </select>
+                           </div>
+
+                           <div class="col-6 mt-3">
+                               <label for="monthly_charges" class="form-label">Ежемесячные траты</label>
+                               <input id="monthly_charges" class="form-control" name="18"  type="number" step="any" required/>
+                           </div>
+
+                           <div class="col-6 mt-3">
+                               <label for="total_charges" class="form-label">Всего потрачено</label>
+                               <input id="total_charges" class="form-control" name="19"  type="number" step="any" required/>
+                           </div>
+
+                           <div class="col-6 mt-3">
+                               <label for="paperless_billing" class="form-label">Безналичный расчет</label>
+                               <select class="form-select" id="paperless_billing" name="16"  required>
+                                   <option selected disabled value="">Выберите...</option>
+                                   <option value="1">Да</option>
+                                   <option value="2">Нет</option>
+                               </select>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col">
+                       <div class="row">
+                           <div class="col-12">
+                               <h4>Информация об услугах</h4>
+                           </div>
+
+                         <div class="col-6">
+                               <label for="internet_service" class="form-label">Интернет</label>
+                               <select class="form-select" id="internet_service" name="1" required>
+                                   <option selected value="Not Use">Не подключено</option>
+                                   <option value="Fiber optic">Оптоволоконный кабель</option>
+                                   <option value="DSL">Через телефонную линию</option>
+                               </select>
+                           </div>
+
+                           <div class="col-6">
+                               <label for="multiple_lines" class="form-label">Телефонная связь</label>
+                               <select class="form-select" id="multiple_lines" name="8" required>
+                                   <option selected value="-1">Не подключено</option>
+                                   <option value="0">Одна</option>
+                                   <option value="1">Мульти</option>
+                               </select>
+                           </div>
+
+
+                            <div class="col-6 mt-3">
+                               <label for="payment_method" class="form-label">Способ оплаты</label>
+                               <select class="form-select" id="payment_method" name="17" required>
+                                   <option selected disabled value="">Выберите...</option>
+                                   <option value="Electronic check">Electronic check</option>
+                                   <option value="Mailed check<">Mailed check</option>
+                                   <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+                                   <option value="Credit card (automatic)">Credit card (automatic)</option>
+                               </select>
+                           </div>
+
+                           <div class="col-6 mt-3">
+                               <label for="type" class="form-label">Тип оплаты</label>
+                               <select class="form-select" id="type" name="15" required>
+                                   <option selected disabled value="">Выберите...</option>
+                                   <option value="Month-to-month">Month-to-month</option>
+                                   <option value="One year">One year</option>
+                                   <option value="Two year">Two year</option>
+                               </select>
+                           </div>
+
+                         <div class="col-12 mt-2">
+                               <div class="row border border-secondary" style="background: lightgrey">
+                                   <div class="col-12 mt-2">
+                                       <p class="text-center"><b>Дополнительные услуги</b></p>
+                                   </div>
+
+                                    <div class="col-6">
+                                        <label for="device_protection" class="form-label">Антивирус</label>
+                                        <select class="form-select" id="device_protection" name="4" required>
+                                            <option value="No">Нет</option>
+                                            <option value="Yes">Да</option>
+                                        </select>
+                                    </div>
+
+                                   <div class="col-6">
+                                        <label for="online_security" class="form-label">Блок небезопасных сайтов</label>
+                                        <select class="form-select" id="online_security" name="2" required>
+                                            <option value="No">Нет</option>
+                                            <option value="Yes">Да</option>
+                                        </select>
+                                    </div>
+
+                                   <div class="col-6 mt-2">
+                                        <label for="tech_support" class="form-label">Выделенная техподдержка</label>
+                                        <select class="form-select" id="tech_support" name="5" required>
+                                            <option value="No">Нет</option>
+                                            <option value="Yes">Да</option>
+                                        </select>
+                                    </div>
+
+                                   <div class="col-6 mt-2">
+                                        <label for="online_backup" class="form-label">Резерв. копирование файлов</label>
+                                        <select class="form-select" id="online_backup" name="3" required>
+                                            <option value="No">Нет</option>
+                                            <option value="Yes">Да</option>
+                                        </select>
+                                    </div>
+
+                                   <div class="col-6 mt-2">
+                                        <label for="streaming_movies" class="form-label">Каталог фильмов</label>
+                                        <select class="form-select" id="streaming_movies" name="7" required>
+                                            <option value="No">Нет</option>
+                                            <option value="Yes">Да</option>
+                                        </select>
+                                    </div>
+
+                                   <div class="col-6 my-2">
+                                        <label for="streaming_tv" class="form-label">Стриминговое телевидение</label>
+                                        <select class="form-select" id="streaming_tv" name="6" required>
+                                            <option value="No">Нет</option>
+                                            <option value="Yes">Да</option>
+                                        </select>
+                                    </div>
+
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+
+               <div class="text-center mt-3">
+                  <button type="submit" class="btn btn-outline-primary btn-lg">Предсказать</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </body>
+</html>
